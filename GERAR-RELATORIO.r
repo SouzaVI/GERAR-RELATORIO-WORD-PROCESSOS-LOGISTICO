@@ -21,7 +21,7 @@ if(!require(dplyr)){install.packages("dplyr")}
 #gs4_auth()
 
 # Specify the Google Sheets URL or title
-sheet_url <- "https://docs.google.com/spreadsheets/d/1mnwAkaJKEXB8am9rXlQDQROxdro0-RD0SxlLjQ-8vEQ/edit#gid=1482385366"
+sheet_url <- 
 
 # Read the data from Google Sheets
 df_list <- read_sheet(sheet_url, sheet = 1)
@@ -35,7 +35,7 @@ today <- Sys.Date()
 DATA_ATUAL <- format(today, format="%d-%m-%Y")
 
 
-DATA_ATUAL1 <- paste0( "RESUMO DIÁRIO DE PREVISÃO DE AMOSTRAS - ", DATA_ATUAL)
+DATA_ATUAL1 <- paste0( "RESUMO DIÃRIO DE PREVISÃƒO DE AMOSTRAS - ", DATA_ATUAL)
 
 as.Date
 #landscape section
@@ -71,16 +71,16 @@ df <- read_excel("G:/.shortcut-targets-by-id/1eY6qLaqCw0vMplswsEaSexf_xogKRn_4/G
 ################################################################################
 
 
-pendentes_df<-filter(df, Tipo == "SOLO", Laboratório
+pendentes_df<-filter(df, Tipo == "SOLO", LaboratÃ³rio
                      %in% c("EXATA", "IBRA", "SOLO E PLANTA", "SOLUM"), Status != "FINALIZADO" )%>%
-  select(Laboratório, Lote, `Data Envio`, `Data Recebimento`, `Data de Entrada`,
-         Cliente, Fazenda, `Nº Amostras`, `Previsão de Liberação`, `Data de Liberação`)
+  select(LaboratÃ³rio, Lote, `Data Envio`, `Data Recebimento`, `Data de Entrada`,
+         Cliente, Fazenda, `NÂº Amostras`, `PrevisÃ£o de LiberaÃ§Ã£o`, `Data de LiberaÃ§Ã£o`)
 
 pendentes_df$`Data Envio` <- as.Date(pendentes_df$`Data Envio`)
 pendentes_df$`Data Recebimento` <- as.Date(pendentes_df$`Data Recebimento`)
 pendentes_df$`Data de Entrada` <- as.Date(pendentes_df$`Data de Entrada`)
-pendentes_df$`Previsão de Liberação` <- as.Date(pendentes_df$`Previsão de Liberação`)
-pendentes_df$`Previsão de Liberação`[pendentes_df$`Previsão de Liberação`<2021] <- NA
+pendentes_df$`PrevisÃ£o de LiberaÃ§Ã£o` <- as.Date(pendentes_df$`PrevisÃ£o de LiberaÃ§Ã£o`)
+pendentes_df$`PrevisÃ£o de LiberaÃ§Ã£o`[pendentes_df$`PrevisÃ£o de LiberaÃ§Ã£o`<2021] <- NA
 
 
 pendentes_df<-pendentes_df[order(pendentes_df$`Data Envio`), na.last=FALSE]
@@ -88,70 +88,70 @@ pendentes_df<-pendentes_df[order(pendentes_df$`Data Envio`), na.last=FALSE]
 
 
 #FINALIZADOS PENDENTES
-finalizados_pendentes_df<-filter(df, Tipo == "PENDENTE", Laboratório
+finalizados_pendentes_df<-filter(df, Tipo == "PENDENTE", LaboratÃ³rio
                                  %in% c("EXATA", "IBRA", "SOLO E PLANTA", "SOLUM"), Status != "FINALIZADO" )%>%
-  select(Laboratório,Lote, Cliente, Fazenda, `Nº Amostras`)
+  select(LaboratÃ³rio,Lote, Cliente, Fazenda, `NÂº Amostras`)
 
 
 
 
 
 #EXATA
-pendentes_exata_df<- filter(pendentes_df, Laboratório == "EXATA")%>%
-  select(Lote, Cliente, Fazenda, `Nº Amostras`,
+pendentes_exata_df<- filter(pendentes_df, LaboratÃ³rio == "EXATA")%>%
+  select(Lote, Cliente, Fazenda, `NÂº Amostras`,
          `Data Envio`, `Data Recebimento`, `Data de Entrada`,
-         `Previsão de Liberação`)
+         `PrevisÃ£o de LiberaÃ§Ã£o`)
 
 pendentes_exata_total <- count(pendentes_exata_df$Fazenda)
 pendentes_exata_total2<-sum(pendentes_exata_total$freq)
-total_exata_lote<-paste0( "Nº de lotes pendentes: ", pendentes_exata_total2)
+total_exata_lote<-paste0( "NÂº de lotes pendentes: ", pendentes_exata_total2)
 
-pendentes_exata_total3<-sum(pendentes_exata_df$`Nº Amostras`)
-total_exata_amostra<-paste0( "Nº de amostras pendentes: ", pendentes_exata_total3)
+pendentes_exata_total3<-sum(pendentes_exata_df$`NÂº Amostras`)
+total_exata_amostra<-paste0( "NÂº de amostras pendentes: ", pendentes_exata_total3)
 
 
 #IBRA
-pendentes_ibra_df<- filter(pendentes_df, Laboratório == "IBRA")%>%
-  select(Lote, Cliente, Fazenda, `Nº Amostras`,
+pendentes_ibra_df<- filter(pendentes_df, LaboratÃ³rio == "IBRA")%>%
+  select(Lote, Cliente, Fazenda, `NÂº Amostras`,
          `Data Envio`, `Data Recebimento`)#,
-#`Previsão de Liberação`)
+#`PrevisÃ£o de LiberaÃ§Ã£o`)
 
 pendentes_ibra_total <- count(pendentes_ibra_df$Fazenda)
 pendentes_ibra_total2<-sum(pendentes_ibra_total$freq)
-total_ibra_lote<-paste0( "Nº de lotes pendentes: ", pendentes_ibra_total2)
+total_ibra_lote<-paste0( "NÂº de lotes pendentes: ", pendentes_ibra_total2)
 
-pendentes_ibra_total3<-sum(pendentes_ibra_df$`Nº Amostras`)
-total_ibra_amostra<-paste0( "Nº de amostras pendentes: ", pendentes_ibra_total3)
+pendentes_ibra_total3<-sum(pendentes_ibra_df$`NÂº Amostras`)
+total_ibra_amostra<-paste0( "NÂº de amostras pendentes: ", pendentes_ibra_total3)
 
 
 
 #SOLO E PLANTA
-pendentes_solo_df<- filter(pendentes_df, Laboratório == "SOLO E PLANTA")%>%
-  select(Lote, Cliente, Fazenda, `Nº Amostras`,
+pendentes_solo_df<- filter(pendentes_df, LaboratÃ³rio == "SOLO E PLANTA")%>%
+  select(Lote, Cliente, Fazenda, `NÂº Amostras`,
          `Data Envio`, `Data Recebimento`,
-         `Previsão de Liberação`)
+         `PrevisÃ£o de LiberaÃ§Ã£o`)
 
 
 pendentes_solo_total <- count(pendentes_solo_df$Fazenda)
 pendentes_solo_total2<-sum(pendentes_solo_total$freq)
-total_solo_lote<-paste0( "Nº de lotes pendentes: ", pendentes_solo_total2)
+total_solo_lote<-paste0( "NÂº de lotes pendentes: ", pendentes_solo_total2)
 
-pendentes_solo_total3<-sum(pendentes_solo_df$`Nº Amostras`)
-total_solo_amostra<-paste0( "Nº de amostras pendentes: ", pendentes_solo_total3)
+pendentes_solo_total3<-sum(pendentes_solo_df$`NÂº Amostras`)
+total_solo_amostra<-paste0( "NÂº de amostras pendentes: ", pendentes_solo_total3)
 
 #SOLUM
-pendentes_solum_df<- filter(pendentes_df, Laboratório == "SOLUM")%>%
-  select(Lote, Cliente, Fazenda, `Nº Amostras`,
+pendentes_solum_df<- filter(pendentes_df, LaboratÃ³rio == "SOLUM")%>%
+  select(Lote, Cliente, Fazenda, `NÂº Amostras`,
          `Data Envio`, `Data Recebimento`,
-         `Previsão de Liberação`)
+         `PrevisÃ£o de LiberaÃ§Ã£o`)
 
 
 pendentes_solum_total <- count(pendentes_solum_df$Fazenda)
 pendentes_solum_total2<-sum(pendentes_solum_total$freq)
-total_solum_lote<-paste0( "Nº de lotes pendentes: ", pendentes_solum_total2)
+total_solum_lote<-paste0( "NÂº de lotes pendentes: ", pendentes_solum_total2)
 
-pendentes_solum_total3<-sum(pendentes_solum_df$`Nº Amostras`)
-total_solum_amostra<-paste0( "Nº de amostras pendentes: ", pendentes_solum_total3)
+pendentes_solum_total3<-sum(pendentes_solum_df$`NÂº Amostras`)
+total_solum_amostra<-paste0( "NÂº de amostras pendentes: ", pendentes_solum_total3)
 
 
 #JP EM AGUARDO
@@ -164,18 +164,18 @@ jp_df$`Data ultimo resultado` <- as.Date(jp_df$`Data ultimo resultado`)
 
 
 aguardo_processamento <- filter(df, `Status Processamento` =="EM AGUARDO")%>%
-  select(Cliente, Fazenda, `Nº Amostras`, `Data de Liberação`)
+  select(Cliente, Fazenda, `NÂº Amostras`, `Data de LiberaÃ§Ã£o`)
 
-aguardo_processamento$`Data de Liberação` <- as.Date(aguardo_processamento$`Data de Liberação`)
+aguardo_processamento$`Data de LiberaÃ§Ã£o` <- as.Date(aguardo_processamento$`Data de LiberaÃ§Ã£o`)
 
 
 aguardo_df1<-ddply(aguardo_processamento, .(Cliente, Fazenda), summarize,
-                   `Nº amostras aguardo` = round(sum(`Nº Amostras`), 2))
+                   `NÂº amostras aguardo` = round(sum(`NÂº Amostras`), 2))
 
 Pendentes_df1<-ddply(pendentes_df, .(Cliente, Fazenda), summarize,
-                     `Nº amostras Pendentes` = round(sum(`Nº Amostras`), 2))
+                     `NÂº amostras Pendentes` = round(sum(`NÂº Amostras`), 2))
 
-data<-ddply(aguardo_processamento, .(Cliente, Fazenda), summarize, `Data ultimo resultado` =  max(`Data de Liberação`))
+data<-ddply(aguardo_processamento, .(Cliente, Fazenda), summarize, `Data ultimo resultado` =  max(`Data de LiberaÃ§Ã£o`))
 
 
 join1<-join(aguardo_df1, Pendentes_df1,  type = "left" )# Primeiro Join Cliente + fazenda + amostras pendentes
@@ -184,14 +184,14 @@ join2<-join(join1, data, type = "left") # segundo join cliente + fazenda + amost
 
 options(digits = 3)
 
-join2["Nº total amostras"]<-join2$`Nº amostras aguardo` + join2$`Nº amostras Pendentes` # total de amostra da fazenda
-join2["Status de conclusão (%)"]<-(join2$`Nº amostras aguardo` * 100) / join2$`Nº total amostras`  # status de conclusão
+join2["NÂº total amostras"]<-join2$`NÂº amostras aguardo` + join2$`NÂº amostras Pendentes` # total de amostra da fazenda
+join2["Status de conclusÃ£o (%)"]<-(join2$`NÂº amostras aguardo` * 100) / join2$`NÂº total amostras`  # status de conclusÃ£o
 join2<-join2 %>% arrange(desc(ymd(join2$`Data ultimo resultado`)))
 
 aguardo_total <- count(join2$Fazenda)
 aguardo_total2<-sum(aguardo_total$freq)
 
-total_aguardo<-paste0( "Nº Em Aguardo: ", aguardo_total2)
+total_aguardo<-paste0( "NÂº Em Aguardo: ", aguardo_total2)
 
 
 ###############################################################################
@@ -204,7 +204,7 @@ processados_total <- count(processados_df$Fazenda)
 t <- sum(processados_total$freq)
 
 aguardo_total2<-sum(aguardo_total$freq)
-total_processado<-paste0( "Nº de Processamentos do dia: ", t)
+total_processado<-paste0( "NÂº de Processamentos do dia: ", t)
 
 
 ###############################################################################
@@ -214,7 +214,7 @@ total_processado<-paste0( "Nº de Processamentos do dia: ", t)
 #gs4_auth()
 
 # Specify the Google Sheets URL or title
-sheet_url <- "https://docs.google.com/spreadsheets/d/1mnwAkaJKEXB8am9rXlQDQROxdro0-RD0SxlLjQ-8vEQ/edit#gid=1482385366"
+sheet_url <- ""
 
 # Read the data from Google Sheets
 df_list <- read_sheet(sheet_url, sheet = 1)
@@ -234,13 +234,13 @@ print(df_finalizado)
 
 
 df_vistoriados <- df_finalizado %>%
-  filter(`STATUS CORREÇÃO` %in% c('VISTORIADO', 'AREA', 'VISTORIADO/NOTURNO', 'CHEGOU MAIS RESULTADOS/NOTURNO', 'CHEGOU MAIS RESULTADOS', 'AREA/PIPEFY'))
+  filter(`STATUS CORREÃ‡ÃƒO` %in% c('VISTORIADO', 'AREA', 'VISTORIADO/NOTURNO', 'CHEGOU MAIS RESULTADOS/NOTURNO', 'CHEGOU MAIS RESULTADOS', 'AREA/PIPEFY'))
 
 
 corrigidos_df <- df_vistoriados %>%
-  filter(`DATA DE CORREÇÃO` == Sys.Date() |
-           (`STATUS CORREÇÃO` == 'VISTORIADO/NOTURNO' & `DATA DE CORREÇÃO` == Sys.Date() - 1) |
-           (`STATUS CORREÇÃO` == 'CHEGOU MAIS RESULTADOS/NOTURNO' & `DATA DE CORREÇÃO` == Sys.Date() - 1))%>%
+  filter(`DATA DE CORREÃ‡ÃƒO` == Sys.Date() |
+           (`STATUS CORREÃ‡ÃƒO` == 'VISTORIADO/NOTURNO' & `DATA DE CORREÃ‡ÃƒO` == Sys.Date() - 1) |
+           (`STATUS CORREÃ‡ÃƒO` == 'CHEGOU MAIS RESULTADOS/NOTURNO' & `DATA DE CORREÃ‡ÃƒO` == Sys.Date() - 1))%>%
   select(`CLIENTE`, `FAZENDA`)
 
 print(corrigidos_df)
@@ -248,7 +248,7 @@ print(corrigidos_df)
 corrigidos_total <- count(corrigidos_df$FAZENDA)
 t_1 <- sum(corrigidos_total$freq)
 
-total_corrigido<-paste0( "Nº de Conferidos do dia: ", t_1)
+total_corrigido<-paste0( "NÂº de Conferidos do dia: ", t_1)
 
 
 ###############################################################################
@@ -257,12 +257,12 @@ total_corrigido<-paste0( "Nº de Conferidos do dia: ", t_1)
 
 df_aguardando_conferencia <- filter(df_corrigidos,
                                     `STATUS` == 'FINALIZADO'&
-                                      `STATUS CORREÇÃO` != 'VISTORIADO' &
-                                      `STATUS CORREÇÃO` != 'CHEGOU MAIS RESULTADOS/NOTURNO' &
-                                      `STATUS CORREÇÃO` != 'VISTORIADO/NOTURNO' &
-                                      `STATUS CORREÇÃO` != 'AREA' &
-                                      `STATUS CORREÇÃO` != 'AREA/PIPEFY' &
-                                      `STATUS CORREÇÃO` != 'CHEGOU MAIS RESULTADOS')%>%
+                                      `STATUS CORREÃ‡ÃƒO` != 'VISTORIADO' &
+                                      `STATUS CORREÃ‡ÃƒO` != 'CHEGOU MAIS RESULTADOS/NOTURNO' &
+                                      `STATUS CORREÃ‡ÃƒO` != 'VISTORIADO/NOTURNO' &
+                                      `STATUS CORREÃ‡ÃƒO` != 'AREA' &
+                                      `STATUS CORREÃ‡ÃƒO` != 'AREA/PIPEFY' &
+                                      `STATUS CORREÃ‡ÃƒO` != 'CHEGOU MAIS RESULTADOS')%>%
   select(`CLIENTE`, `FAZENDA`)%>%
   arrange(`CLIENTE`)
 
@@ -272,7 +272,7 @@ print(df_aguardando_conferencia)
 df_aguardando_conferencia_total <- count(df_aguardando_conferencia$FAZENDA)
 t_2 <- sum(df_aguardando_conferencia_total$freq)
 
-total_aguardando_conferidos<-paste0( "Nº de Aguardando Conferência: ", t_2)
+total_aguardando_conferidos<-paste0( "NÂº de Aguardando ConferÃªncia: ", t_2)
 
 
 ###############################################################################
@@ -380,15 +380,15 @@ sample_doc <- flextable::body_add_flextable(sample_doc, value = EXATA)
 
 
 # Em aguardo para processamento
-total_processado<-paste0( "Nº de Processamentos do dia: ", t)
+total_processado<-paste0( "NÂº de Processamentos do dia: ", t)
 
 join <- flextable(join2)
 sample_doc <- officer::body_end_block_section(sample_doc, value=landscape)
 
 #footer_str <- 'AMOSTRAS DE SOLO'
 header_str <- 'EM AGUARDO PARA PROCESSAMENTO'
-footer_str <- paste0('Nº Amostras Pendentes : refere-se ao número de amostras ainda sem resultados', sep="\n",
-                     'Status de conclusão (%): refere-se a porcentagem de conclusão de resultados liberados pelos Laboratório',
+footer_str <- paste0('NÂº Amostras Pendentes : refere-se ao nÃºmero de amostras ainda sem resultados', sep="\n",
+                     'Status de conclusÃ£o (%): refere-se a porcentagem de conclusÃ£o de resultados liberados pelos LaboratÃ³rio',
                      sep="\n", total_aguardo)
 join <- add_header_lines(join, values = header_str)
 join <- add_footer_lines(join, values = footer_str)
@@ -401,7 +401,7 @@ join <- flextable::width(join,width=1.5)
 set_table_properties(join, layout = "autofit")
 join<-fontsize(join, size = 10, part = "body")
 #colourer <- col_numeric(palette = "RdYlGn",domain = c(0, 100))
-#join<-bg(join, j = "Status de conclusão (%)", bg = colourer)
+#join<-bg(join, j = "Status de conclusÃ£o (%)", bg = colourer)
 
 sample_doc <- flextable::body_add_flextable(sample_doc, value = join)
 sample_doc <- officer::body_end_block_section(sample_doc, value=landscape)
@@ -441,7 +441,7 @@ finalizados_pendentes <- flextable(finalizados_pendentes_df)
 
 #footer_str <- 'AMOSTRAS DE SOLO'
 header_str <- 'FINALIZADOS - PENDENTES'
-footer_str <- 'A tabela refere-se as analises finalizadas pelo laboratorio sem a emissão dos laudos para a Terram'
+footer_str <- 'A tabela refere-se as analises finalizadas pelo laboratorio sem a emissÃ£o dos laudos para a Terram'
 finalizados_pendentes <- add_header_lines(finalizados_pendentes, values = header_str)
 finalizados_pendentes <- add_footer_lines(finalizados_pendentes, values = footer_str)
 finalizados_pendentes <- theme_zebra(finalizados_pendentes)
@@ -453,7 +453,7 @@ finalizados_pendentes <- flextable::width(finalizados_pendentes,width=1.5)
 set_table_properties(finalizados_pendentes, layout = "autofit")
 finalizados_pendentes<-fontsize(finalizados_pendentes, size = 10, part = "body")
 #colourer <- col_numeric(palette = "RdYlGn",domain = c(0, 100))
-#join<-bg(join, j = "Status de conclusão (%)", bg = colourer)
+#join<-bg(join, j = "Status de conclusÃ£o (%)", bg = colourer)
 
 sample_doc <- flextable::body_add_flextable(sample_doc, value = finalizados_pendentes)
 sample_doc <- officer::body_end_block_section(sample_doc, value=portrait)
